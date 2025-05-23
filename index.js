@@ -18,8 +18,8 @@ const HUBSPOT_UPLOAD  = 'https://api.hubapi.com/crm/v3/imports/';
 
 // Define your batches by _base_ filename (no date or part suffix)
 const BATCH_FILES = {
-  1: ['test0', 'test1'],
-  2: ['test2'],
+  1: ['test0'],
+  2: ['test2', 'test1'],
   3: ['test0', 'test2']
 };
 
@@ -141,8 +141,8 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     return resp.data.id;
   }catch(error){
     //console.error(error.response?.data?.message)
-    console.error('2------------------------------')
-    console.error('HubSpot Error:', error.response)
+    console.error('3------------------------------')
+    console.error('HubSpot Error:', error)
   }
 }
 
