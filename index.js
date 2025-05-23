@@ -123,14 +123,20 @@ async function createHubSpotImport(runId, batchNum, filenames) {
       { filename: fn, contentType: 'text/csv' }
     );
   }
-
-  const headers = { 
-    ...form.getHeaders(),
-    Authorization: `Bearer ${HUBSPOT_API_KEY}`
-  };
-
   try{
-    const resp = await axios.post(HUBSPOT_UPLOAD, form, { headers });
+    
+    const length = await new Promise((resolve, reject) => 
+      form.getLength((err, len) => err ? reject(err) : resolve(len))
+    );
+    const resp = await axios.post(HUBSPOT_UPLOAD, form, {
+      headers: {
+        ...form.getHeaders(),
+        'Content-Length': length,
+        Authorization:    `Bearer ${HUBSPOT_API_KEY}`
+      },
+      maxContentLength: Infinity,
+      maxBodyLength:    Infinity,
+    });
     console.log('Success!')
     
     return resp.data.id;
