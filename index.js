@@ -129,11 +129,13 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     Authorization: `Bearer ${HUBSPOT_API_KEY}`
   };
 
+  console.log(form)
+
   try{
-    const resp = await axios.post(HUBSPOT_UPLOAD, form, { headers });
-    console.log('Success!')
+    //const resp = await axios.post(HUBSPOT_UPLOAD, form, { headers });
+    //console.log('Success!')
     
-    return resp.data.id;
+    //return resp.data.id;
   }catch(error){
     console.error('HubSpot Error:', error.response.data)
   }
