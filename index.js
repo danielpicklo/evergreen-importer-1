@@ -165,7 +165,6 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     const filenames = await discoverBatchFiles(batchNum, runId);
 
     // 5) init Firestore doc
-    const runRef = firestore.collection(RUNS_COLLECTION).doc(runId);
     await runRef.set({
       createdAt: FieldValue.serverTimestamp(),
       currentBatch: batchNum,
