@@ -3,6 +3,7 @@ const { Firestore, FieldValue } = require('@google-cloud/firestore');
 const { Storage }               = require('@google-cloud/storage');
 const axios                     = require('axios');
 const FormData                  = require('form-data');
+const minimist                  = require('minimist');
 
 const firestore = new Firestore();
 const storage   = new Storage();
@@ -58,48 +59,41 @@ const FILE_SCHEMA = {
  * Groups them by base and ensures each base has >=1 file.
  * Returns array of filenames including suffixes.
  */
+// Helper: list & group all split files for a batch
 async function discoverBatchFiles(batchNum, runId) {
+
+  console.log('Discovering Batch Files', batchNum)
+  
   const bases = BATCH_FILES[batchNum];
-  const dateSuffix = runId; // e.g. "2025-05-22"
+  const dateSuffix = runId; // e.g. "2025-05-23"
   const prefix = 'uploads/';
 
-  console.log('Discover Batch Files')
-
-  // List all objects under "uploads/"
   const [files] = await storage.bucket(BUCKET_NAME).getFiles({ prefix });
-
-  // Build a map base → [full filenames]
   const groups = bases.reduce((acc, b) => ({ ...acc, [b]: [] }), {});
-  for (const file of files) {
-    const name = file.name.replace(prefix, ''); // e.g. "test0____2025-05-22___part1.txt"
-    for (const base of bases) {
-      // match files starting with base____date
+  for (const f of files) {
+    const name = f.name.replace(prefix, '');
+    bases.forEach(base => {
       if (name.startsWith(`${base}____${dateSuffix}`) && name.endsWith('.txt')) {
         groups[base].push(name);
       }
-    }
+    });
   }
 
-  // Ensure each base has at least one file
   const missing = bases.filter(b => groups[b].length === 0);
   if (missing.length) {
-    throw new Error(`Still waiting for files: ${missing.join(', ')}`);
+    throw new Error(`Missing files for base: ${missing.join(', ')}`);
   }
 
-  // Flatten into single array
   return Object.values(groups).flat();
 }
 
-/**
- * Builds and sends the multipart/form-data import request
- */
+// Helper: perform multipart/form-data import to HubSpot
 async function createHubSpotImport(runId, batchNum, filenames) {
+
+  console.log('Creating Import', batchNum)
+  
   const form = new FormData();
-
-  console.log('Creating HubSpot Import')
-
-  // Build the importRequest JSON
-  const importRequest = {
+  form.append('importRequest', JSON.stringify({
     name: `Import ${runId} - batch${batchNum}`,
     files: filenames.map(fn => {
       const base = fn.split('____')[0];
@@ -112,54 +106,45 @@ async function createHubSpotImport(runId, batchNum, filenames) {
         }
       };
     })
-  };
-  form.append('importRequest', JSON.stringify(importRequest), {
-    contentType: 'application/json'
-  });
+  }), { contentType: 'application/json' });
 
-  // Attach each file stream
   for (const fn of filenames) {
-    const stream = storage
-      .bucket(BUCKET_NAME)
-      .file(`uploads/${fn}`)
-      .createReadStream();
-    form.append('files', stream, { filename: fn, contentType: 'text/csv' });
+    form.append('files',
+      storage.bucket(BUCKET_NAME)
+        .file(`uploads/${fn}`)
+        .createReadStream(),
+      { filename: fn, contentType: 'text/csv' }
+    );
   }
 
-  const headers = {
+  const headers = { 
     ...form.getHeaders(),
     Authorization: `Bearer ${HUBSPOT_API_KEY}`
   };
-
   const resp = await axios.post(HUBSPOT_UPLOAD, form, { headers });
+  console.log('Success!')
   return resp.data.id;
 }
 
-console.log('Initializing')
+// Main entrypoint
+(async () => {
 
-exports.startBatchImport = async (req, res) => {
-
-  console.log('Starting')
+  console.log('Initializing')
   
   try {
-    // 1) Read runId & batchNum
-    const runId    = req.query.runId    || new Date().toISOString().slice(0,10);
-    const batchNum = parseInt(req.query.batchNum || '1', 10);
+    // 1) parse args
+    const argv = minimist(process.argv.slice(2));
+    const runId    = argv.runId    || new Date().toISOString().slice(0,10);
+    const batchNum = parseInt(argv.batchNum || '1', 10);
     if (!BATCH_FILES[batchNum]) {
-      return res.status(400).json({ error: `Unknown batchNum ${batchNum}` });
+      throw new Error(`Unknown batchNum ${batchNum}`);
     }
     const batchKey = `batch${batchNum}`;
 
-    // 2) Discover all split files for this batch
-    let filenames;
-    try {
-      filenames = await discoverBatchFiles(batchNum, runId);
-    } catch (e) {
-      // Still waiting for some parts
-      return res.status(202).json({ message: e.message });
-    }
+    // 2) discover files
+    const filenames = await discoverBatchFiles(batchNum, runId);
 
-    // 3) Initialize Firestore
+    // 3) init Firestore doc
     const runRef = firestore.collection(RUNS_COLLECTION).doc(runId);
     await runRef.set({
       createdAt: FieldValue.serverTimestamp(),
@@ -168,18 +153,20 @@ exports.startBatchImport = async (req, res) => {
       [`batches.${batchKey}.files`]: filenames
     }, { merge: true });
 
-    // 4) Kick off HubSpot import
+    // 4) call HubSpot import
     const importId = await createHubSpotImport(runId, batchNum, filenames);
 
-    // 5) Update Firestore to in_progress
+    // 5) mark in_progress
     await runRef.update({
       [`batches.${batchKey}.importId`]: importId,
       [`batches.${batchKey}.status`]: 'in_progress'
     });
 
-    res.json({ runId, batch: batchKey, importId, files: filenames });
+    console.log(`✔ Launched batch${batchNum} (importId: ${importId})`);
+    process.exit(0);
+
   } catch (err) {
-    console.error('startBatchImport error:', err);
-    res.status(500).json({ error: err.message });
+    console.error('❌ Importer job failed:', err);
+    process.exit(1);
   }
-};
+})();
