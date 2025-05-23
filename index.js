@@ -146,6 +146,9 @@ async function createHubSpotImport(runId, batchNum, filenames) {
   console.log('Initializing')
   
   try {
+
+    console.log('process.argv:', process.argv);
+    
     // 1) parse args
     const argv = minimist(process.argv.slice(2));
     const runId    = argv.runId    || new Date().toISOString().slice(0,10);
