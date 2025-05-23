@@ -63,6 +63,8 @@ async function discoverBatchFiles(batchNum, runId) {
   const dateSuffix = runId; // e.g. "2025-05-22"
   const prefix = 'uploads/';
 
+  console.log('Discover Batch Files')
+
   // List all objects under "uploads/"
   const [files] = await storage.bucket(BUCKET_NAME).getFiles({ prefix });
 
@@ -93,6 +95,8 @@ async function discoverBatchFiles(batchNum, runId) {
  */
 async function createHubSpotImport(runId, batchNum, filenames) {
   const form = new FormData();
+
+  console.log('Creating HubSpot Import')
 
   // Build the importRequest JSON
   const importRequest = {
@@ -132,6 +136,9 @@ async function createHubSpotImport(runId, batchNum, filenames) {
 }
 
 exports.startBatchImport = async (req, res) => {
+
+  console.log('Starting')
+  
   try {
     // 1) Read runId & batchNum
     const runId    = req.query.runId    || new Date().toISOString().slice(0,10);
