@@ -146,22 +146,25 @@ async function createHubSpotImport(runId, batchNum, filenames) {
   console.log('Initializing')
   
   try {
-
-    console.log('process.argv:', process.argv);
     
-    // 1) parse args
-    const argv = minimist(process.argv.slice(2));
-    const runId    = argv.runId    || new Date().toISOString().slice(0,10);
-    const batchNum = parseInt(argv.batchNum || '1', 10);
-    if (!BATCH_FILES[batchNum]) {
-      throw new Error(`Unknown batchNum ${batchNum}`);
-    }
-    const batchKey = `batch${batchNum}`;
+    // 1) Determine runId (today's date)
+    const runId = new Date().toISOString().slice(0,10);
+    const runRef = firestore.collection(RUNS_COLLECTION).doc(runId);
 
-    // 2) discover files
+    // 2) Read the currentBatch from Firestore
+    const snap = await runRef.get();
+    if (!snap.exists) throw new Error(`Run ${runId} not initialized in Firestore`);
+    const { currentBatch } = snap.data();
+    if (!currentBatch) throw new Error(`currentBatch missing for run ${runId}`);
+
+    // 3) Use currentBatch to discover files & mappings
+    const batchNum = currentBatch;
+    const baseFiles = BATCH_FILES[batchNum];
+
+    // 4) discover files
     const filenames = await discoverBatchFiles(batchNum, runId);
 
-    // 3) init Firestore doc
+    // 5) init Firestore doc
     const runRef = firestore.collection(RUNS_COLLECTION).doc(runId);
     await runRef.set({
       createdAt: FieldValue.serverTimestamp(),
@@ -170,10 +173,10 @@ async function createHubSpotImport(runId, batchNum, filenames) {
       [`batches.${batchKey}.files`]: filenames
     }, { merge: true });
 
-    // 4) call HubSpot import
+    // 6) call HubSpot import
     const importId = await createHubSpotImport(runId, batchNum, filenames);
 
-    // 5) mark in_progress
+    // 7) mark in_progress
     await runRef.update({
       [`batches.${batchKey}.importId`]: importId,
       [`batches.${batchKey}.status`]: 'in_progress'
