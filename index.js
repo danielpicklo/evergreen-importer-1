@@ -14,7 +14,7 @@ const storage   = new Storage();
 const BUCKET_NAME     = 'evergreen-import-storage';
 const RUNS_COLLECTION = 'imports';
 const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
-const HUBSPOT_UPLOAD  = 'https://api.hubapi.com/crm/v3/imports/files';
+const HUBSPOT_UPLOAD  = 'https://api.hubapi.com/crm/v3/imports/';
 
 // Define your batches by _base_ filename (no date or part suffix)
 const BATCH_FILES = {
