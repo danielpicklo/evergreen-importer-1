@@ -62,7 +62,8 @@ const FILE_SCHEMA = {
 // Helper: list & group all split files for a batch
 async function discoverBatchFiles(batchNum, runId) {
 
-  console.log('Discovering Batch Files', batchNum)
+  console.log('Discovering Batch Files:', batchNum)
+  console.log('--------------------------')
   
   const bases = BATCH_FILES[batchNum];
   const dateSuffix = runId; // e.g. "2025-05-23"
@@ -73,7 +74,6 @@ async function discoverBatchFiles(batchNum, runId) {
   
   for (const f of files) {
     const name = f.name.replace(prefix, '');
-    
     bases.forEach(base => {
       if (name.startsWith(`${base}____${dateSuffix}`) && name.endsWith('.txt')) {
         groups[base].push(name);
@@ -87,13 +87,14 @@ async function discoverBatchFiles(batchNum, runId) {
     throw new Error(`Missing files for base: ${missing.join(', ')}`);
   }*/
 
-  //return Object.values(groups).flat();
+  return Object.values(groups).flat();
 }
 
 // Helper: perform multipart/form-data import to HubSpot
 async function createHubSpotImport(runId, batchNum, filenames) {
 
-  console.log('Creating Import', batchNum)
+  console.log('--------------------------')
+  console.log('Creating Import:', batchNum)
   
   const form = new FormData();
   form.append('importRequest', JSON.stringify({
@@ -148,7 +149,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     const filenames = await discoverBatchFiles(batchNum, runId);
 
     // 3) init Firestore doc
-    /*const runRef = firestore.collection(RUNS_COLLECTION).doc(runId);
+    const runRef = firestore.collection(RUNS_COLLECTION).doc(runId);
     await runRef.set({
       createdAt: FieldValue.serverTimestamp(),
       currentBatch: batchNum,
@@ -165,7 +166,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
       [`batches.${batchKey}.status`]: 'in_progress'
     });
 
-    console.log(`✔ Launched batch${batchNum} (importId: ${importId})`);*/
+    console.log(`✔ Launched batch${batchNum} (importId: ${importId})`);
     process.exit(0);
 
   } catch (err) {
