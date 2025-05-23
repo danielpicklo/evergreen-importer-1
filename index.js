@@ -70,17 +70,14 @@ async function discoverBatchFiles(batchNum, runId) {
 
   const [files] = await storage.bucket(BUCKET_NAME).getFiles({ prefix });
   const groups = bases.reduce((acc, b) => ({ ...acc, [b]: [] }), {});
-
-  console.log('Found Files', files)
   
   for (const f of files) {
     const name = f.name.replace(prefix, '');
-
-    console.log('File Name', name)
     
     bases.forEach(base => {
       if (name.startsWith(`${base}____${dateSuffix}`) && name.endsWith('.txt')) {
         groups[base].push(name);
+        console.log('File Name:', name)
       }
     });
   }
