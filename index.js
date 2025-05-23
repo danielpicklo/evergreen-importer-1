@@ -19,8 +19,8 @@ const HUBSPOT_UPLOAD  = 'https://api.hubapi.com/crm/v3/imports/';
 // Define your batches by _base_ filename (no date or part suffix)
 const BATCH_FILES = {
   1: ['test0'],
-  2: ['test2', 'test1'],
-  3: ['test0', 'test2']
+  2: ['test1'],
+  3: ['test2']
 };
 
 // Column mappings keyed by base filename
@@ -136,9 +136,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     
     return resp.data.id;
   }catch(error){
-    //console.error(error.response?.data?.message)
-    console.error('2------------------------------')
-    console.error('HubSpot Error:', error)
+    console.error(error.response?.data?.message)
   }
 }
 
@@ -173,12 +171,12 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     const importId = await createHubSpotImport(runId, batchNum, filenames);
 
     // 5) mark in_progress
-    /*await runRef.update({
+    await runRef.update({
       [`batches.${batchKey}.importId`]: importId,
       [`batches.${batchKey}.status`]: 'in_progress'
     });
 
-    console.log(`✔ Launched batch${batchNum} (importId: ${importId})`);*/
+    console.log(`✔ Launched batch${batchNum} (importId: ${importId})`);
     process.exit(0);
 
   } catch (err) {
