@@ -130,7 +130,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
   };
 
   //console.log(form)
-  console.log(HUBSPOT_API_KEY)
+  //console.log(HUBSPOT_API_KEY)
 
   try{
     const resp = await axios.post(HUBSPOT_UPLOAD, form, { headers });
@@ -138,7 +138,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     
     return resp.data.id;
   }catch(error){
-    console.error('HubSpot Error:', error.response.message)
+    console.error('HubSpot Error:', error.response)
   }
 }
 
