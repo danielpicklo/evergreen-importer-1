@@ -160,6 +160,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     // 3) Use currentBatch to discover files & mappings
     const batchNum = currentBatch;
     const baseFiles = BATCH_FILES[batchNum];
+    const batchKey = `batch${batchNum}`
 
     // 4) discover files
     const filenames = await discoverBatchFiles(batchNum, runId);
