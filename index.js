@@ -129,15 +129,16 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     Authorization: `Bearer ${HUBSPOT_API_KEY}`
   };
 
-  console.log(form)
+  //console.log(form)
+  console.log(HUBSPOT_API_KEY)
 
   try{
-    //const resp = await axios.post(HUBSPOT_UPLOAD, form, { headers });
-    //console.log('Success!')
+    const resp = await axios.post(HUBSPOT_UPLOAD, form, { headers });
+    console.log('Success!')
     
-    //return resp.data.id;
+    return resp.data.id;
   }catch(error){
-    console.error('HubSpot Error:', error.response.data)
+    console.error('HubSpot Error:', error.response.message)
   }
 }
 
@@ -172,12 +173,12 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     const importId = await createHubSpotImport(runId, batchNum, filenames);
 
     // 5) mark in_progress
-    await runRef.update({
+    /*await runRef.update({
       [`batches.${batchKey}.importId`]: importId,
       [`batches.${batchKey}.status`]: 'in_progress'
     });
 
-    console.log(`✔ Launched batch${batchNum} (importId: ${importId})`);
+    console.log(`✔ Launched batch${batchNum} (importId: ${importId})`);*/
     process.exit(0);
 
   } catch (err) {
