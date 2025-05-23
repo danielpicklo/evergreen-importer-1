@@ -135,6 +135,8 @@ async function createHubSpotImport(runId, batchNum, filenames) {
   return resp.data.id;
 }
 
+console.log('Initializing')
+
 exports.startBatchImport = async (req, res) => {
 
   console.log('Starting')
