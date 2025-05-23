@@ -5,7 +5,10 @@ const axios                     = require('axios');
 const FormData                  = require('form-data');
 const minimist                  = require('minimist');
 
-const firestore = new Firestore();
+const firestore = new Firestore({
+  projectId: 'evergreen-45696013',
+  databaseId: 'imports'
+});
 const storage   = new Storage();
 
 const BUCKET_NAME     = 'evergreen-import-storage';
