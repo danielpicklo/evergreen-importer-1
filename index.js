@@ -115,14 +115,14 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     })
   }), { contentType: 'application/json' });
 
-  for (const fn of filenames) {
+  /*for (const fn of filenames) {
     form.append('files',
       storage.bucket(BUCKET_NAME)
         .file(`uploads/${fn}`)
         .createReadStream(),
       { filename: fn, contentType: 'text/csv' }
     );
-  }
+  }*/
 
   const headers = { 
     ...form.getHeaders(),
@@ -138,6 +138,8 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     
     return resp.data.id;
   }catch(error){
+    console.error(error.response.data.message)
+    console.error('------------------------------')
     console.error('HubSpot Error:', error.response)
   }
 }
