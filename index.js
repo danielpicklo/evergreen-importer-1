@@ -115,22 +115,19 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     })
   }), { contentType: 'application/json' });
 
-  /*for (const fn of filenames) {
+  for (const fn of filenames) {
     form.append('files',
       storage.bucket(BUCKET_NAME)
         .file(`uploads/${fn}`)
         .createReadStream(),
       { filename: fn, contentType: 'text/csv' }
     );
-  }*/
+  }
 
   const headers = { 
     ...form.getHeaders(),
     Authorization: `Bearer ${HUBSPOT_API_KEY}`
   };
-
-  //console.log(form)
-  //console.log(HUBSPOT_API_KEY)
 
   try{
     const resp = await axios.post(HUBSPOT_UPLOAD, form, { headers });
@@ -140,7 +137,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
   }catch(error){
     console.error(error.response.data.message)
     console.error('------------------------------')
-    console.error('HubSpot Error:', error.response)
+    //console.error('HubSpot Error:', error.response)
   }
 }
 
