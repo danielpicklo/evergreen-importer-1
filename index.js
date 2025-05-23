@@ -135,7 +135,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     
     return resp.data.id;
   }catch(error){
-    console.error('HubSpot Error:', err.response.data)
+    console.error('HubSpot Error:', error.response.data)
   }
 }
 
