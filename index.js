@@ -140,9 +140,9 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     
     return resp.data.id;
   }catch(error){
-    console.error(error.response?.data?.message)
-    console.error('1------------------------------')
-    //console.error('HubSpot Error:', error.response)
+    //console.error(error.response?.data?.message)
+    console.error('2------------------------------')
+    console.error('HubSpot Error:', error.response)
   }
 }
 
