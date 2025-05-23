@@ -12,7 +12,8 @@
       "axios": "^1.7.7",
       "@google-cloud/firestore": "^6.0.0",
       "@google-cloud/storage": "^6.0.0",
-      "form-data": "^4.0.0"
+      "form-data": "^4.0.0",
+        "minimist": "1.2.8"
     }
   }
   
