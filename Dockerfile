@@ -13,4 +13,4 @@ RUN npm install --only=production
 COPY . .
 
 # Run your job
-CMD ["node", "job.js"]
+CMD ["node", "index.js"]
