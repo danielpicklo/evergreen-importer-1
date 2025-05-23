@@ -26,7 +26,7 @@ const BATCH_FILES = {
 // Column mappings keyed by base filename
 const FILE_SCHEMA = {
   "test0": [
-      { columnObjectTypeId: '0-8', columnName: 'Key_Number', propertyName: 'key_number' },
+      { columnObjectTypeId: '0-8', columnName: 'Key_Number', propertyName: 'name' },
       { columnObjectTypeId: '0-3', columnName: 'Order_Number', propertyName: 'order_number' },
       { columnObjectTypeId: '0-3', columnName: 'PO Number', propertyName: 'po_number' },
       { columnObjectTypeId: '0-8', columnName: 'Item_ID', propertyName: 'hs_sku' },
@@ -35,7 +35,7 @@ const FILE_SCHEMA = {
       { columnObjectTypeId: '0-8', columnName: 'Total_Price', propertyName: 'total_price' }
   ],
   "test1": [
-      { columnObjectTypeId: '0-8', columnName: 'Key_Number', propertyName: 'key_number' },
+      { columnObjectTypeId: '0-8', columnName: 'Key_Number', propertyName: 'name' },
       { columnObjectTypeId: '0-3', columnName: 'Order_Number', propertyName: 'order_number' },
       { columnObjectTypeId: '0-3', columnName: 'PO Number', propertyName: 'po_number' },
       { columnObjectTypeId: '0-8', columnName: 'Item_ID', propertyName: 'hs_sku' },
@@ -44,7 +44,7 @@ const FILE_SCHEMA = {
       { columnObjectTypeId: '0-8', columnName: 'Total_Price', propertyName: 'total_price' }
   ],
   "test2": [
-      { columnObjectTypeId: '0-8', columnName: 'Key_Number', propertyName: 'key_number' },
+      { columnObjectTypeId: '0-8', columnName: 'Key_Number', propertyName: 'name' },
       { columnObjectTypeId: '0-3', columnName: 'Order_Number', propertyName: 'order_number' },
       { columnObjectTypeId: '0-3', columnName: 'PO Number', propertyName: 'po_number' },
       { columnObjectTypeId: '0-8', columnName: 'Item_ID', propertyName: 'hs_sku' },
@@ -130,10 +130,9 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     const resp = await axios.post(HUBSPOT_UPLOAD, form, {
       headers: {
         ...form.getHeaders(),
-        'Content-Length': length,
         Authorization:    `Bearer ${HUBSPOT_API_KEY}`
       },
-      maxContentLength: Infinity,
+      //maxContentLength: Infinity,
       maxBodyLength:    Infinity,
     });
     console.log('Success!')
@@ -141,7 +140,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     return resp.data.id;
   }catch(error){
     //console.error(error.response?.data?.message)
-    console.error('3------------------------------')
+    console.error('1------------------------------')
     console.error('HubSpot Error:', error)
   }
 }
