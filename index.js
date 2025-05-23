@@ -30,7 +30,7 @@ const FILE_SCHEMA = {
       { columnObjectTypeId: '0-3', columnName: 'Order_Number', propertyName: 'order_number' },
       { columnObjectTypeId: '0-3', columnName: 'PO Number', propertyName: 'po_number' },
       { columnObjectTypeId: '0-8', columnName: 'Item_ID', propertyName: 'hs_sku' },
-      { columnObjectTypeId: '0-8', columnName: 'Item_Description', propertyName: 'hs_sku' },
+      { columnObjectTypeId: '0-8', columnName: 'Item_Description', propertyName: 'description' },
       { columnObjectTypeId: '0-8', columnName: 'Item_Price', propertyName: 'price' },
       { columnObjectTypeId: '0-8', columnName: 'Total_Price', propertyName: 'total_price' }
   ],
@@ -39,17 +39,16 @@ const FILE_SCHEMA = {
       { columnObjectTypeId: '0-3', columnName: 'Order_Number', propertyName: 'order_number' },
       { columnObjectTypeId: '0-3', columnName: 'PO Number', propertyName: 'po_number' },
       { columnObjectTypeId: '0-8', columnName: 'Item_ID', propertyName: 'hs_sku' },
-      { columnObjectTypeId: '0-8', columnName: 'Item_Description', propertyName: 'hs_sku' },
+      { columnObjectTypeId: '0-8', columnName: 'Item_Description', propertyName: 'description' },
       { columnObjectTypeId: '0-8', columnName: 'Item_Price', propertyName: 'price' },
-      { columnObjectTypeId: '0-8', columnName: 'Total_Price', propertyName: 'total_price' },
-      //{ columnObjectTypeId: '0-1', columnName: 'Rep_Email', propertyName: 'email' }
+      { columnObjectTypeId: '0-8', columnName: 'Total_Price', propertyName: 'total_price' }
   ],
   "test2": [
       { columnObjectTypeId: '0-8', columnName: 'Key_Number', propertyName: 'key_number' },
       { columnObjectTypeId: '0-3', columnName: 'Order_Number', propertyName: 'order_number' },
       { columnObjectTypeId: '0-3', columnName: 'PO Number', propertyName: 'po_number' },
       { columnObjectTypeId: '0-8', columnName: 'Item_ID', propertyName: 'hs_sku' },
-      { columnObjectTypeId: '0-8', columnName: 'Item_Description', propertyName: 'hs_sku' },
+      { columnObjectTypeId: '0-8', columnName: 'Item_Description', propertyName: 'description' },
       { columnObjectTypeId: '0-8', columnName: 'Item_Price', propertyName: 'price' },
       { columnObjectTypeId: '0-8', columnName: 'Total_Price', propertyName: 'total_price' },
       { columnObjectTypeId: '0-1', columnName: 'Rep_Email', propertyName: 'email' }
@@ -141,8 +140,8 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     
     return resp.data.id;
   }catch(error){
-    console.error(error.response.data.message)
-    console.error('------------------------------')
+    console.error(error.response?.data?.message)
+    console.error('1------------------------------')
     //console.error('HubSpot Error:', error.response)
   }
 }
