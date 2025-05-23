@@ -123,16 +123,13 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     );
   }
   try{
-    
-    const length = await new Promise((resolve, reject) => 
-      form.getLength((err, len) => err ? reject(err) : resolve(len))
-    );
+
     const resp = await axios.post(HUBSPOT_UPLOAD, form, {
       headers: {
         ...form.getHeaders(),
         Authorization:    `Bearer ${HUBSPOT_API_KEY}`
       },
-      //maxContentLength: Infinity,
+      maxContentLength: Infinity,
       maxBodyLength:    Infinity,
     });
     console.log('Success!')
@@ -140,7 +137,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     return resp.data.id;
   }catch(error){
     //console.error(error.response?.data?.message)
-    console.error('1------------------------------')
+    console.error('2------------------------------')
     console.error('HubSpot Error:', error)
   }
 }
