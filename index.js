@@ -148,14 +148,33 @@ async function createHubSpotImport(runId, batchNum, filenames) {
   try {
     
     // 1) Determine runId (today's date)
-    const runId = new Date().toISOString().slice(0,10);
+    const runId  = new Date().toISOString().slice(0,10);
     const runRef = firestore.collection(RUNS_COLLECTION).doc(runId);
-
-    // 2) Read the currentBatch from Firestore
-    const snap = await runRef.get();
-    if (!snap.exists) throw new Error(`Run ${runId} not initialized in Firestore`);
-    const { currentBatch } = snap.data();
-    if (!currentBatch) throw new Error(`currentBatch missing for run ${runId}`);
+  
+    // 2) Attempt to read the doc
+    let snap = await runRef.get();
+    let batchNum;
+  
+    if (!snap.exists) {
+      // Doc doesn’t exist: initialize it for batch 1
+      batchNum = 1;
+      console.log(`Run ${runId} not found—creating for batch 1`);
+      await runRef.set({
+        createdAt: FieldValue.serverTimestamp(),
+        currentBatch: batchNum
+      });
+    } else {
+      const data = snap.data();
+      // If currentBatch is missing or falsy, default to 1
+      if (!data.currentBatch) {
+        batchNum = 1;
+        console.log(`currentBatch missing—setting to 1 for run ${runId}`);
+        await runRef.update({ currentBatch: batchNum });
+      } else {
+        batchNum = data.currentBatch;
+        console.log(`Found run ${runId} at batch ${batchNum}`);
+      }
+    }
 
     // 3) Use currentBatch to discover files & mappings
     const batchNum = currentBatch;
