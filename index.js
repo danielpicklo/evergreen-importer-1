@@ -18,9 +18,12 @@ const HUBSPOT_UPLOAD  = 'https://api.hubapi.com/crm/v3/imports/';
 
 // Define your batches by _base_ filename (no date or part suffix)
 const BATCH_FILES = {
-  1: ['test0'],
-  2: ['test1'],
-  3: ['test2']
+  1: ['TMZip'],
+  2: ['SalesRep'],
+  3: ['CM'],
+  4: ['PRODUCTS_EVERGREEN'],
+  5: ['Evergreen_OH_Full'],
+  6: ['Evergreen_OD_Delta']
 };
 
 // Column mappings keyed by base filename
