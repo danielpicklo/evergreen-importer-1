@@ -407,6 +407,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
 
   console.log(`Finished batch${batchNum}, lastImportId=${lastImportId}`);
   return lastImportId;
+}
 
 // Main entrypoint
 (async () => {
