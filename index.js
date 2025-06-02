@@ -66,7 +66,7 @@ const FILE_SCHEMA = {
     {'columnObjectTypeId': '0-123', 'columnName': 'Rep_ID', 'propertyName': 'rep_id'},
     {'columnObjectTypeId': '0-123', 'columnName': 'RepEmail', 'propertyName': 'rep_email'}],
   "Evergreen_OH_Full": [
-    {'columnObjectTypeId': '0-2', 'columnName': 'Customer_Number', 'propertyName': 'account_number'},
+    {'columnObjectTypeId': '0-2', 'columnName': 'Customer_Number', 'propertyName': 'account_number', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '0-123', 'columnName': 'Key_Number', 'propertyName': 'order_number'},
     {'columnObjectTypeId': '0-123', 'columnName': 'Order_Number', 'propertyName': 'hs_order_name'},
     {'columnObjectTypeId': '0-123', 'columnName': 'Invoice_Number', 'propertyName': 'invoice_number'},
@@ -235,11 +235,11 @@ const FILE_SCHEMA = {
     {'columnObjectTypeId': '0-7', 'columnName': 'Sub_Brands', 'propertyName': 'sub_brands'},
     {'columnObjectTypeId': '0-7', 'columnName': 'Flag_4_LowStock', 'propertyName': 'flag_for_low_stock'}],
   "CM": [
-    {'columnObjectTypeId': '0-2', 'columnName': 'Account_Number', 'propertyName': 'account_number'},
+    {'columnObjectTypeId': '0-2', 'columnName': 'Account_Number', 'propertyName': 'account_number', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '0-2', 'columnName': 'EPI_Website_Number', 'propertyName': 'epi_website_number'},
     {'columnObjectTypeId': '0-2', 'columnName': 'Corporate_Account_ID', 'propertyName': 'corporate_account_id'},
     {'columnObjectTypeId': '0-2', 'columnName': 'Linked_ID', 'propertyName': 'linked_id_non_unique'},
-    {'columnObjectTypeId': '2-43986593', 'columnName': 'Sales_Rep_ID', 'propertyName': 'sales_rep_id'},
+    {'columnObjectTypeId': '2-43986593', 'columnName': 'Sales_Rep_ID', 'propertyName': 'sales_rep_id', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '2-43986593', 'columnName': 'Market', 'propertyName': 'market'},
     {'columnObjectTypeId': '0-2', 'columnName': 'Role', 'propertyName': 'role'},
     {'columnObjectTypeId': '0-2', 'columnName': 'Tax_ID', 'propertyName': 'tax_id_text'},
