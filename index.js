@@ -356,6 +356,19 @@ async function discoverBatchFiles(batchNum, runId) {
   return Object.values(groups).flat();
 }
 
+function getBaseName(fn) {
+  // 1) Remove the “____<date>.txt” suffix
+  const withoutDate = fn.split('____')[0]; // e.g. "Evergreen_OD_Delta___part1"
+
+  // 2) If there’s a “___partN” suffix, strip it off
+  if (withoutDate.includes('___part')) {
+    return withoutDate.split('___part')[0]; // e.g. "Evergreen_OD_Delta"
+  }
+
+  // 3) Otherwise, what’s left is already the base
+  return withoutDate;
+}
+
 // Helper: perform multipart/form-data import to HubSpot
 async function createHubSpotImport(runId, batchNum, filenames) {
   let lastImportId = null;
@@ -365,7 +378,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
 
   for (const fn of filenames) {
     console.log(`→ Importing file ${fn}`);
-    const base = fn.split('____')[0];
+    const base = getBaseName(fn);
 
     // Build a fresh FormData for this file
     const form = new FormData();
