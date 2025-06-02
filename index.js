@@ -252,7 +252,7 @@ const FILE_SCHEMA = {
     {'columnObjectTypeId': '0-1', 'columnName': 'Contact_Phone_Number_Extension', 'propertyName': 'phone_number_extension'},
     {'columnObjectTypeId': '0-2', 'columnName': 'Store_Type', 'propertyName': 'store_type'},
     {'columnObjectTypeId': '2-43986593', 'columnName': 'Zone_ID', 'propertyName': 'zone_id', 'columnType': 'HUBSPOT_ALTERNATE_ID' },
-    {'columnObjectTypeId': '0-2', 'columnName': 'Website', 'propertyName': 'domain'},
+    {'columnObjectTypeId': '0-2', 'columnName': 'Website', 'propertyName': 'domain', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '0-2', 'columnName': 'Year_To_Date_Order_Total', 'propertyName': 'year_to_date_order_total'},
     {'columnObjectTypeId': '0-2', 'columnName': 'Last_Year_Order_Total', 'propertyName': 'last_year_order_total'},
     {'columnObjectTypeId': '0-2', 'columnName': 'Hard_Coded_Discount_Percentage', 'propertyName': 'hard_coded_discount'},
