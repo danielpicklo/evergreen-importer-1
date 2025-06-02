@@ -134,7 +134,7 @@ const FILE_SCHEMA = {
   "PRODUCTS_EVERGREEN": [
     {'columnObjectTypeId': '0-7', 'columnName': 'SKU_Number', 'propertyName': 'hs_sku'},
     {'columnObjectTypeId': '0-7', 'columnName': 'Group_SKU_Number', 'propertyName': 'group_sku_number'},
-    {'columnName': 'Group_Name', ignored: true},
+    /*{'columnName': 'Group_Name', ignored: true},
     {'columnName': 'Option_1', ignored: true},
     {'columnName': 'Option_1_Label', ignored: true},
     {'columnName': 'Is_Default_Variant', ignored: true},
@@ -233,7 +233,7 @@ const FILE_SCHEMA = {
     {'columnObjectTypeId': '0-7', 'columnName': 'Occasion', 'propertyName': 'occasion'},
     {'columnObjectTypeId': '0-7', 'columnName': 'Sub_Theme', 'propertyName': 'sub_theme'},
     {'columnObjectTypeId': '0-7', 'columnName': 'Sub_Brands', 'propertyName': 'sub_brands'},
-    {'columnObjectTypeId': '0-7', 'columnName': 'Flag_4_LowStock', 'propertyName': 'flag_for_low_stock'}],
+    {'columnObjectTypeId': '0-7', 'columnName': 'Flag_4_LowStock', 'propertyName': 'flag_for_low_stock'}]*/,
   "CM": [
     {'columnObjectTypeId': '0-2', 'columnName': 'Account_Number', 'propertyName': 'account_number', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '0-2', 'columnName': 'EPI_Website_Number', 'propertyName': 'epi_website_number'},
