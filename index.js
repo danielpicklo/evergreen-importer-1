@@ -341,7 +341,7 @@ async function discoverBatchFiles(batchNum, runId) {
   for (const f of files) {
     const name = f.name.replace(prefix, '');
     bases.forEach(base => {
-      if (name.startsWith(`${base}____${dateSuffix}`) && name.endsWith('.txt')) {
+      if (name.startsWith(`${base}`) && name.endsWith(`____${dateSuffix}.txt`)) {
         groups[base].push(name);
         console.log('File Name:', name)
       }
