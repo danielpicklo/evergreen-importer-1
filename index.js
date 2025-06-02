@@ -140,7 +140,7 @@ const FILE_SCHEMA = {
     {'columnName': 'Is_Default_Variant', ignored: true},
     {'columnObjectTypeId': '0-7', 'columnName': 'Product_Name', 'propertyName': 'name'},
     {'columnObjectTypeId': '0-7', 'columnName': 'Categories', 'propertyName': 'categories'},
-    /*{'columnName': 'Video_ID', ignored: true},
+    {'columnName': 'Video_ID', ignored: true},
     {'columnObjectTypeId': '0-7', 'columnName': 'Brand', 'propertyName': 'brand'},
     {'columnObjectTypeId': '0-7', 'columnName': 'US_Price', 'propertyName': 'price'},
     {'columnObjectTypeId': '0-7', 'columnName': 'US_Sale_Price', 'propertyName': 'sale_price'},
@@ -233,7 +233,7 @@ const FILE_SCHEMA = {
     {'columnObjectTypeId': '0-7', 'columnName': 'Occasion', 'propertyName': 'occasion'},
     {'columnObjectTypeId': '0-7', 'columnName': 'Sub_Theme', 'propertyName': 'sub_theme'},
     {'columnObjectTypeId': '0-7', 'columnName': 'Sub_Brands', 'propertyName': 'sub_brands'},
-    {'columnObjectTypeId': '0-7', 'columnName': 'Flag_4_LowStock', 'propertyName': 'flag_for_low_stock'}*/],
+    {'columnObjectTypeId': '0-7', 'columnName': 'Flag_4_LowStock', 'propertyName': 'flag_for_low_stock'}],
   "CM": [
     {'columnObjectTypeId': '0-2', 'columnName': 'Account_Number', 'propertyName': 'account_number', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '0-2', 'columnName': 'EPI_Website_Number', 'propertyName': 'epi_website_number'},
@@ -399,7 +399,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
       lastImportId = resp.data.id;
       console.log(`  → Success, importId=${lastImportId}`);
     } catch (err) {
-      console.error(`  ✖ Failed importing ${fn}:`, err.response?.data || err.message);
+      console.error(`  ✖ Failed importing ${fn}:`, err.response?.data || err.message || err);
       // decide here if you want to throw or continue with next file:
       throw err;
     }
