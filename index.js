@@ -314,7 +314,7 @@ const FILE_SCHEMA = {
     {'columnObjectTypeId': '2-43986593', 'columnName': 'Shipping_Zip_Postal_Code', 'propertyName': 'shipping_zip_postal_code'},
     {'columnObjectTypeId': '2-43986593', 'columnName': 'Zone_ID', 'propertyName': 'zone_id'}],
   "TMZip": [
-    {'columnObjectTypeId': '2-43986596', 'columnName': 'Zip_Code', 'propertyName': 'zip_code'},
+    {'columnObjectTypeId': '2-43986596', 'columnName': 'Zip_Code', 'propertyName': 'zip_code', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '2-43986596', 'columnName': 'Sales_Rep_ID', 'propertyName': 'sales_rep_id'},
     {'columnObjectTypeId': '2-43986596', 'columnName': 'Custom2', 'propertyName': 'custom2'}]
 }
