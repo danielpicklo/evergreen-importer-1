@@ -233,7 +233,7 @@ const FILE_SCHEMA = {
     {'columnObjectTypeId': '0-7', 'columnName': 'Occasion', 'propertyName': 'occasion'},
     {'columnObjectTypeId': '0-7', 'columnName': 'Sub_Theme', 'propertyName': 'sub_theme'},
     {'columnObjectTypeId': '0-7', 'columnName': 'Sub_Brands', 'propertyName': 'sub_brands'},
-    {'columnObjectTypeId': '0-7', 'columnName': 'Flag_4_LowStock', 'propertyName': 'flag_for_low_stock'}]*/,
+    {'columnObjectTypeId': '0-7', 'columnName': 'Flag_4_LowStock', 'propertyName': 'flag_for_low_stock'}*/],
   "CM": [
     {'columnObjectTypeId': '0-2', 'columnName': 'Account_Number', 'propertyName': 'account_number', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '0-2', 'columnName': 'EPI_Website_Number', 'propertyName': 'epi_website_number'},
