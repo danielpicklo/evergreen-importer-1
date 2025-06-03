@@ -30,7 +30,7 @@ const BATCH_FILES = {
 const FILE_SCHEMA = {
   "Evergreen_OD_Delta": [
     {'columnObjectTypeId': '0-8', 'columnName': 'Key_Number', 'propertyName': 'update'},
-    {'columnObjectTypeId': '0-123', 'columnName': 'Order_Number', 'propertyName': 'order_number'},
+    {'columnObjectTypeId': '0-123', 'columnName': 'Order_Number', 'propertyName': 'order_number', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '0-123', 'columnName': 'PO_Number', 'propertyName': 'po_number'},
     {'columnObjectTypeId': '0-8', 'columnName': 'Item_ID', 'propertyName': 'hs_sku'},
     {'columnObjectTypeId': '0-8', 'columnName': 'Item_Description', 'propertyName': 'name'},
@@ -67,7 +67,7 @@ const FILE_SCHEMA = {
     {'columnObjectTypeId': '0-123', 'columnName': 'RepEmail', 'propertyName': 'rep_email'}],
   "Evergreen_OH_Full": [
     {'columnObjectTypeId': '0-2', 'columnName': 'Customer_Number', 'propertyName': 'account_number', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
-    {'columnObjectTypeId': '0-123', 'columnName': 'Key_Number', 'propertyName': 'order_number'},
+    {'columnObjectTypeId': '0-123', 'columnName': 'Key_Number', 'propertyName': 'order_number', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '0-123', 'columnName': 'Order_Number', 'propertyName': 'hs_order_name'},
     {'columnObjectTypeId': '0-123', 'columnName': 'Invoice_Number', 'propertyName': 'invoice_number'},
     {'columnObjectTypeId': '0-123', 'columnName': 'Website_Order_Number', 'propertyName': 'website_order'},
@@ -295,7 +295,7 @@ const FILE_SCHEMA = {
     {'columnObjectTypeId': '0-2', 'columnName': 'Open_Not_Due', 'propertyName': 'open_not_due'},
     {'columnObjectTypeId': '0-2', 'columnName': 'RepEmail', 'propertyName': 'rep_email'}],
   "SalesRep": [
-    {'columnObjectTypeId': '2-43986593', 'columnName': 'Sales_Rep_ID', 'propertyName': 'sales_rep_id'},
+    {'columnObjectTypeId': '2-43986593', 'columnName': 'Sales_Rep_ID', 'propertyName': 'sales_rep_id', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '2-43986593', 'columnName': 'Market', 'propertyName': 'market'},
     {'columnObjectTypeId': '2-43986593', 'columnName': 'First_Name', 'propertyName': 'first_name'},
     {'columnObjectTypeId': '2-43986593', 'columnName': 'Last_Name', 'propertyName': 'last_name'},
