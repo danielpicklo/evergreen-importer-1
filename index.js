@@ -29,7 +29,7 @@ const BATCH_FILES = {
 // Column mappings keyed by base filename
 const FILE_SCHEMA = {
   "Evergreen_OD_Delta": [
-    {'columnObjectTypeId': '0-8', 'columnName': 'Key_Number', 'propertyName': 'update'},
+    {'columnObjectTypeId': '0-8', 'columnName': 'Key_Number', 'propertyName': 'update', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '0-123', 'columnName': 'Order_Number', 'propertyName': 'order_number', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '0-123', 'columnName': 'PO_Number', 'propertyName': 'po_number'},
     {'columnObjectTypeId': '0-8', 'columnName': 'Item_ID', 'propertyName': 'hs_sku'},
