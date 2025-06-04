@@ -291,7 +291,7 @@ const FILE_SCHEMA = {
     {'columnObjectTypeId': '0-2', 'columnName': 'Booked_Last_Year', 'propertyName': 'booked_last_year'},
     {'columnObjectTypeId': '0-2', 'columnName': 'Credit_Amount_Last_Year', 'propertyName': 'credit_amount_last_year'},
     {'columnObjectTypeId': '0-2', 'columnName': 'Last_Shipped_Date', 'propertyName': 'last_shipped_date'},
-    {'columnObjectTypeId': '0-2', 'columnName': 'Active', 'propertyName': 'active'},
+    {'columnObjectTypeId': '0-2', 'columnName': 'Active', 'propertyName': 'active_tmp'},
     {'columnObjectTypeId': '0-2', 'columnName': 'Open_Not_Due', 'propertyName': 'open_not_due'},
     {'columnObjectTypeId': '0-2', 'columnName': 'RepEmail', 'propertyName': 'rep_email'}],
   "SalesRep": [
