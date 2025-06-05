@@ -132,7 +132,7 @@ const FILE_SCHEMA = {
     {'columnObjectTypeId': '0-123', 'columnName': 'Due_Date', 'propertyName': 'due_date'},
     {'columnObjectTypeId': '0-123', 'columnName': 'RepEmail', 'propertyName': 'rep_email'}],
   "PRODUCTS_EVERGREEN": [
-    {'columnObjectTypeId': '0-7', 'columnName': 'SKU_Number', 'propertyName': 'hs_sku'},
+    {'columnObjectTypeId': '0-7', 'columnName': 'SKU_Number', 'propertyName': 'hs_sku', 'columnType': 'HUBSPOT_ALTERNATE_ID'},
     {'columnObjectTypeId': '0-7', 'columnName': 'Group_SKU_Number', 'propertyName': 'group_sku_number'},
     {/*'columnObjectTypeId': '0-7',*/ 'columnName': 'Group_Name', ignored: true},
     {/*'columnObjectTypeId': '0-7',*/ 'columnName': 'Option_1', ignored: true},
