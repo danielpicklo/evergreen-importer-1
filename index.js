@@ -487,6 +487,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
 
   } catch (err) {
     console.error('❌ Importer job failed:', err);
+    throw err;
     process.exit(1);
   }
 })();
