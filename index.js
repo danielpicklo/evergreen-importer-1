@@ -16,6 +16,8 @@ const RUNS_COLLECTION = 'imports';
 const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
 const HUBSPOT_UPLOAD  = 'https://api.hubapi.com/crm/v3/imports/';
 
+const { SALES_REP, ZIP_CODE } = process.env;
+
 // Define your batches by _base_ filename (no date or part suffix)
 const BATCH_FILES = {
   1: ['TMZip'],
@@ -24,6 +26,13 @@ const BATCH_FILES = {
   4: ['PRODUCTS_EVERGREEN'],
   5: ['Evergreen_OH_Full'],
   6: ['Evergreen_OD_Delta']
+};
+
+// Import operations per file name base if needed
+const IMPORT_OPERATIONS = {
+  "CM": {
+    "2-42259285": "UPDATE"
+  }
 };
 
 // Column mappings keyed by base filename
@@ -384,6 +393,7 @@ async function createHubSpotImport(runId, batchNum, filenames) {
     const form = new FormData();
     form.append('importRequest', JSON.stringify({
       name: `Import ${runId} - batch${batchNum} - ${fn}`,
+      importOperations: IMPORT_OPERATIONS[base] || "",
       files: [{
         fileName: fn,
         fileFormat: 'CSV',
